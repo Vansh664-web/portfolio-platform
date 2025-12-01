@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Skill Development Portfolio Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --border: #e2e8f0;
+            --text: #334155;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        nav button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h2::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #db2777;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Portfolio Items */
+        .portfolio-item {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .portfolio-item h3 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-item p {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-item .tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+
+        /* Grid for multiple items */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .item-card {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .item-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+        }
+
+        .item-card h4 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            color: var(--primary);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-box .number {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .stat-box .label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        /* AI Integration Section */
+        .ai-section {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .ai-section h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .ai-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .ai-tool {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .ai-tool:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2);
+        }
+
+        .ai-tool h4 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .ai-tool p {
+            font-size: 0.875rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success Message */
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav>
+            <h1>🎓 Portfolio Platform</h1>
+            <ul>
+                <li><button class="nav-btn" data-tab="dashboard">Dashboard</button></li>
+                <li><button class="nav-btn" data-tab="projects">Projects</button></li>
+                <li><button class="nav-btn" data-tab="skills">Skills</button></li>
+                <li><button class="nav-btn" data-tab="certifications">Certifications</button></li>
+                <li><button class="nav-btn" data-tab="ai-tools">AI Tools</button></li>
+            </ul>
+        </nav>
+
+        <!-- Alert Messages -->
+        <div id="alert" class="alert"></div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="number" id="projectCount">0</div>
+                    <div class="label">Projects</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number" id="skillCount">0</div>
+                    <div class="label">Skills</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number" id="certCount">0</div>
+                    <div class="label">Certifications</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number" id="quizCount">0</div>
+                    <div class="label">Quizzes Completed</div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h2>📝 Professional Bio</h2>
+                    <form id="bioForm">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="fullName" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Professional Bio</label>
+                            <textarea id="bio" placeholder="Write your professional bio..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" id="location" placeholder="City, Country">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Bio</button>
+                        <button type="button" class="btn btn-secondary btn-small" id="aiEnhanceBtn" style="margin-left: 0.5rem;">✨ AI Enhance</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h2>🎯 Quick Stats</h2>
+                    <div style="padding: 1rem 0;">
+                        <p><strong>Profile Completion:</strong> <span id="profileCompletion">0</span>%</p>
+                        <div style="background: var(--border); height: 10px; border-radius: 5px; overflow: hidden;">
+                            <div id="progressBar" style="background: var(--success); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1)); border-radius: 8px;">
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;">📌 Tips to Improve Your Portfolio</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.75rem; padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0;">✓</span>
+                                Add at least 3-5 projects to showcase your work
+                            </li>
+                            <li style="margin-bottom: 0.75rem; padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0;">✓</span>
+                                Document 5+ relevant skills with proficiency levels
+                            </li>
+                            <li style="margin-bottom: 0.75rem; padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0;">✓</span>
+                                Add certifications and achievements
+                            </li>
+                            <li style="margin-bottom: 0.75rem; padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0;">✓</span>
+                                Use AI tools to enhance your content
+                            </li>
+                            <li style="padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0;">✓</span>
+                                Create skill assessment quizzes
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Tab -->
+        <div id="projects" class="tab-content">
+            <div class="card">
+                <h2>💼 My Projects</h2>
+                <button class="btn btn-primary" id="addProjectBtn">+ Add New Project</button>
+                <div id="projectsList" class="items-grid" style="margin-top: 2rem;"></div>
+            </div>
+        </div>
+
+        <!-- Skills Tab -->
+        <div id="skills" class="tab-content">
+            <div class="card">
+                <h2>🛠️ Skills & Expertise</h2>
+                <button class="btn btn-primary" id="addSkillBtn">+ Add Skill</button>
+                <div id="skillsList" style="margin-top: 2rem;"></div>
+            </div>
+        </div>
+
+        <!-- Certifications Tab -->
+        <div id="certifications" class="tab-content">
+            <div class="card">
+                <h2>🏆 Certifications & Achievements</h2>
+                <button class="btn btn-primary" id="addCertBtn">+ Add Certification</button>
+                <div id="certsList" class="items-grid" style="margin-top: 2rem;"></div>
+            </div>
+        </div>
+
+        <!-- AI Tools Tab -->
+        <div id="ai-tools" class="tab-content">
+            <div class="ai-section">
+                <h2>🤖 AI-Powered Tools Integration</h2>
+                <p style="margin-bottom: 1.5rem; color: var(--text);">Leverage AI tools to enhance your portfolio content</p>
+                
+                <div class="tabs" style="border-bottom: 2px solid var(--border);">
+                    <button class="tab-btn active" data-subtab="content-gen">Content Generation</button>
+                    <button class="tab-btn" data-subtab="quiz-builder">Quiz Builder</button>
+                    <button class="tab-btn" data-subtab="templates">Templates</button>
+                </div>
+
+                <!-- Content Generation -->
+                <div id="content-gen" class="tab-content active">
+                    <div class="card">
+                        <h3 style="color: var(--primary); margin-bottom: 1.5rem;">📝 AI Content Generator</h3>
+                        <div class="form-group">
+                            <label>What would you like to generate?</label>
+                            <select id="contentType">
+                                <option value="">Select content type...</option>
+                                <option value="bio">Professional Bio</option>
+                                <option value="project-desc">Project Description</option>
+                                <option value="cover-letter">Cover Letter</option>
+                                <option value="achievement">Achievement Summary</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Provide context or keywords</label>
+                            <textarea id="contentContext" placeholder="E.g., I built a web app using React and Node.js..."></textarea>
+                        </div>
+                        <button class="btn btn-primary" id="generateContentBtn">Generate with AI</button>
+                        <div id="generatedContent" style="margin-top: 1.5rem; padding: 1rem; background: var(--light); border-radius: 6px; display: none;">
+                            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Generated Content:</h4>
+                            <p id="generatedText"></p>
+                            <button class="btn btn-success btn-small" id="copyContentBtn" style="margin-top: 1rem;">Copy to Clipboard</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Builder -->
+                <div id="quiz-builder" class="tab-content">
+                    <div class="card">
+                        <h3 style="color: var(--primary); margin-bottom: 1.5rem;">❓ Skill Assessment Quiz Builder</h3>
+                        <div class="form-group">
+                            <label>Quiz Title</label>
+                            <input type="text" id="quizTitle" placeholder="E.g., JavaScript Fundamentals">
+                        </div>
+                        <div class="form-group">
+                            <label>Skill Category</label>
+                            <input type="text" id="quizCategory" placeholder="E.g., Programming">
+                        </div>
+                        <button class="btn btn-primary" id="createQuizBtn">Create Quiz</button>
+                        <div id="quizzesList" style="margin-top: 2rem;"></div>
+                    </div>
+                </div>
+
+                <!-- Templates -->
+                <div id="templates" class="tab-content">
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;">🎨 Professional Templates & Design Tools</h3>
+                        <p style="color: var(--text); margin-bottom: 1.5rem;">Create stunning professional materials using AI-powered design tools</p>
+                    </div>
+
+                    <div class="ai-tools">
+                        <!-- Canva Resume -->
+                        <div class="ai-tool">
+                            <h4>📄 Resume Template</h4>
+                            <p>Professional resume designed with Canva AI</p>
+                            <p style="font-size: 0.75rem; color: #999; margin: 0.5rem 0;">AI-powered formatting & suggestions</p>
+                            <button class="btn btn-small btn-primary" onclick="openCanvaResume()">Design Resume</button>
+                        </div>
+
+                        <!-- Lumen5 Video -->
+                        <div class="ai-tool">
+                            <h4>🎬 Video Introduction</h4>
+                            <p>Create engaging video intro with Lumen5</p>
+                            <p style="font-size: 0.75rem; color: #999; margin: 0.5rem 0;">Auto-generated from script</p>
+                            <button class="btn btn-small btn-primary" onclick="openLumen5Video()">Create Video</button>
+                        </div>
+
+                        <!-- Gamma AI Presentation -->
+                        <div class="ai-tool">
+                            <h4>🎨 Presentation</h4>
+                            <p>Generate presentation with Gamma AI</p>
+                            <p style="font-size: 0.75rem; color: #999; margin: 0.5rem 0;">Beautiful slides in seconds</p>
+                            <button class="btn btn-small btn-primary" onclick="openGammaAI()">Generate</button>
+                        </div>
+
+                        <!-- Canva Certificate -->
+                        <div class="ai-tool">
+                            <h4>🏅 Certificate</h4>
+                            <p>Design certificates with Canva</p>
+                            <p style="font-size: 0.75rem; color: #999; margin: 0.5rem 0;">Customizable templates</p>
+                            <button class="btn btn-small btn-primary" onclick="openCanvaCertificate()">Design</button>
+                        </div>
+
+                        <!-- Veed.io Video Editor -->
+                        <div class="ai-tool">
+                            <h4>🎥 Video Editor</h4>
+                            <p>Edit videos with Veed.io</p>
+                            <p style="font-size: 0.75rem; color: #999; margin: 0.5rem 0;">Professional video editing</p>
+                            <button class="btn btn-small btn-primary" onclick="openVeedIO()">Edit Video</button>
+                        </div>
+
+                        <!-- Google Sites Portfolio -->
+                        <div class="ai-tool">
+                            <h4>🌐 Google Sites Portfolio</h4>
+                            <p>Build portfolio site with Google Sites</p>
+                            <p style="font-size: 0.75rem; color: #999; margin: 0.5rem 0;">No coding required</p>
+                            <button class="btn btn-small btn-primary" onclick="openGoogleSites()">Create Site</button>
+                        </div>
+
+                        <!-- Notion Portfolio -->
+                        <div class="ai-tool">
+                            <h4>📝 Notion Portfolio</h4>
+                            <p>Build with Notion</p>
+                            <p style="font-size: 0.75rem; color: #999; margin: 0.5rem 0;">Database & templates</p>
+                            <button class="btn btn-small btn-primary" onclick="openNotion()">Create</button>
+                        </div>
+
+                        <!-- Quizizz Quiz Builder -->
+                        <div class="ai-tool">
+                            <h4>❓ Quizizz Quizzes</h4>
+                            <p>Create skill assessment quizzes</p>
+                            <p style="font-size: 0.75rem; color: #999; margin: 0.5rem 0;">Gamified learning</p>
+                            <button class="btn btn-small btn-primary" onclick="openQuizizz()">Create Quiz</button>
+                        </div>
+
+                        <!-- Figma Design -->
+                        <div class="ai-tool">
+                            <h4>🎯 Figma Design</h4>
+                            <p>Design portfolio graphics</p>
+                            <p style="font-size: 0.75rem; color: #999; margin: 0.5rem 0;">Professional design tool</p>
+                            <button class="btn btn-small btn-primary" onclick="openFigma()">Design</button>
+                        </div>
+
+                        <!-- LinkedIn Profile -->
+                        <div class="ai-tool">
+                            <h4>💼 LinkedIn Profile</h4>
+                            <p>Optimize LinkedIn presence</p>
+                            <p style="font-size: 0.75rem; color: #999; margin: 0.5rem 0;">Professional networking</p>
+                            <button class="btn btn-small btn-primary" onclick="openLinkedIn()">Optimize</button>
+                        </div>
+
+                        <!-- GitHub Portfolio -->
+                        <div class="ai-tool">
+                            <h4>💻 GitHub Portfolio</h4>
+                            <p>Showcase projects on GitHub</p>
+                            <p style="font-size: 0.75rem; color: #999; margin: 0.5rem 0;">Developer portfolio</p>
+                            <button class="btn btn-small btn-primary" onclick="openGitHub()">View Profile</button>
+                        </div>
+
+                        <!-- Portfolio Analytics -->
+                        <div class="ai-tool">
+                            <h4>📊 Analytics Dashboard</h4>
+                            <p>Track portfolio views & engagement</p>
+                            <p style="font-size: 0.75rem; color: #999; margin: 0.5rem 0;">Performance metrics</p>
+                            <button class="btn btn-small btn-primary" onclick="showAnalytics()">View Analytics</button>
+                        </div>
+                    </div>
+
+                    <!-- Template Export Section -->
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--light); border-radius: 8px;">
+                        <h4 style="color: var(--primary); margin-bottom: 1rem;">📥 Export & Share</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                            <button class="btn btn-primary" onclick="exportPortfolioPDF()">📄 Export as PDF</button>
+                            <button class="btn btn-primary" onclick="exportPortfolioJSON()">📦 Export as JSON</button>
+                            <button class="btn btn-primary" onclick="sharePortfolioLink()">🔗 Share Link</button>
+                            <button class="btn btn-primary" onclick="printPortfolio()">🖨️ Print Portfolio</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Project</h2>
+                <button class="close-btn" onclick="closeModal('projectModal')">&times;</button>
+            </div>
+            <form id="projectForm">
+                <div class="form-group">
+                    <label>Project Title</label>
+                    <input type="text" id="projectTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="projectDesc" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Technologies Used</label>
+                    <input type="text" id="projectTech" placeholder="React, Node.js, MongoDB...">
+                </div>
+                <div class="form-group">
+                    <label>Project Link</label>
+                    <input type="url" id="projectLink" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label>Start Date</label>
+                    <input type="date" id="projectStart">
+                </div>
+                <div class="form-group">
+                    <label>End Date</label>
+                    <input type="date" id="projectEnd">
+                </div>
+                <button type="submit" class="btn btn-primary">Add Project</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Skill Modal -->
+    <div id="skillModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Skill</h2>
+                <button class="close-btn" onclick="closeModal('skillModal')">&times;</button>
+            </div>
+            <form id="skillForm">
+                <div class="form-group">
+                    <label>Skill Name</label>
+                    <input type="text" id="skillName" required>
+                </div>
+                <div class="form-group">
+                    <label>Proficiency Level</label>
+                    <select id="skillLevel" required>
+                        <option value="">Select level...</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                        <option value="expert">Expert</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" id="skillCategory" placeholder="E.g., Programming, Design, etc.">
+                </div>
+                <div class="form-group">
+                    <label>Years of Experience</label>
+                    <input type="number" id="skillYears" min="0" step="0.5">
+                </div>
+                <button type="submit" class="btn btn-primary">Add Skill</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Certification Modal -->
+    <div id="certModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Certification</h2>
+                <button class="close-btn" onclick="closeModal('certModal')">&times;</button>
+            </div>
+            <form id="certForm">
+                <div class="form-group">
+                    <label>Certification Name</label>
+                    <input type="text" id="certName" required>
+                </div>
+                <div class="form-group">
+                    <label>Issuing Organization</label>
+                    <input type="text" id="certOrg" required>
+                </div>
+                <div class="form-group">
+                    <label>Issue Date</label>
+                    <input type="date" id="certDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Expiration Date (if applicable)</label>
+                    <input type="date" id="certExpiry">
+                </div>
+                <div class="form-group">
+                    <label>Certificate URL</label>
+                    <input type="url" id="certUrl" placeholder="https://...">
+                </div>
+                <button type="submit" class="btn btn-primary">Add Certification</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Data Storage
+        let portfolioData = {
+            bio: {},
+            projects: [],
+            skills: [],
+            certifications: [],
+            quizzes: []
+        };
+
+        // Load data from localStorage
+        function loadData() {
+            const saved = localStorage.getItem('portfolioData');
+            if (saved) {
+                portfolioData = JSON.parse(saved);
+                updateUI();
+            }
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('portfolioData', JSON.stringify(portfolioData));
+            updateStats();
+        }
+
+        // Tab Navigation
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const tabName = e.target.dataset.tab;
+                showTab(tabName);
+            });
+        });
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const subtab = e.target.dataset.subtab;
+                if (subtab) {
+                    showSubTab(subtab);
+                }
+            });
+        });
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        function showSubTab(subtabName) {
+            document.querySelectorAll('#ai-tools .tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(subtabName).classList.add('active');
+            document.querySelectorAll('#ai-tools .tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Bio Form
+        document.getElementById('bioForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            portfolioData.bio = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                bio: document.getElementById('bio').value,
+                location: document.getElementById('location').value
+            };
+            saveData();
+            showAlert('Bio saved successfully!', 'success');
+            addActivity('Updated professional bio');
+        });
+
+        // AI Enhance Button
+        document.getElementById('aiEnhanceBtn').addEventListener('click', () => {
+            const bio = document.getElementById('bio').value;
+            if (!bio) {
+                showAlert('Please write a bio first', 'error');
+                return;
+            }
+            // Simulate AI enhancement
+            const enhanced = `${bio}\n\n[Enhanced with AI] This professional brings expertise in multiple domains with a proven track record of delivering results.`;
+            document.getElementById('bio').value = enhanced;
+            showAlert('Bio enhanced with AI!', 'success');
+        });
+
+        // Project Management
+        document.getElementById('addProjectBtn').addEventListener('click', () => {
+            document.getElementById('projectForm').reset();
+            openModal('projectModal');
+        });
+
+        document.getElementById('projectForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const project = {
+                id: Date.now(),
+                title: document.getElementById('projectTitle').value,
+                desc: document.getElementById('projectDesc').value,
+                tech: document.getElementById('projectTech').value,
+                link: document.getElementById('projectLink').value,
+                start: document.getElementById('projectStart').value,
+                end: document.getElementById('projectEnd').value
+            };
+            portfolioData.projects.push(project);
+            saveData();
+            renderProjects();
+            closeModal('projectModal');
+            showAlert('Project added successfully!', 'success');
+            addActivity(`Added project: ${project.title}`);
+        });
+
+        function renderProjects() {
+            const list = document.getElementById('projectsList');
+            list.innerHTML = portfolioData.projects.map(p => `
+                <div class="item-card">
+                    <h4>${p.title}</h4>
+                    <p style="font-size: 0.875rem; color: var(--text);">${p.desc.substring(0, 100)}...</p>
+                    <div class="tags">
+                        ${p.tech.split(',').map(t => `<span class="tag">${t.trim()}</span>`).join('')}
+                    </div>
+                    <button class="btn btn-small btn-danger" onclick="deleteProject(${p.id})" style="margin-top: 1rem; background: var(--danger);">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteProject(id) {
+            portfolioData.projects = portfolioData.projects.filter(p => p.id !== id);
+            saveData();
+            renderProjects();
+            showAlert('Project deleted', 'success');
+        }
+
+        // Skill Management
+        document.getElementById('addSkillBtn').addEventListener('click', () => {
+            document.getElementById('skillForm').reset();
+            openModal('skillModal');
+        });
+
+        document.getElementById('skillForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const skill = {
+                id: Date.now(),
+                name: document.getElementById('skillName').value,
+                level: document.getElementById('skillLevel').value,
+                category: document.getElementById('skillCategory').value,
+                years: document.getElementById('skillYears').value
+            };
+            portfolioData.skills.push(skill);
+            saveData();
+            renderSkills();
+            closeModal('skillModal');
+            showAlert('Skill added successfully!', 'success');
+            addActivity(`Added skill: ${skill.name}`);
+        });
+
+        function renderSkills() {
+            const list = document.getElementById('skillsList');
+            list.innerHTML = portfolioData.skills.map(s => `
+                <div class="portfolio-item">
+                    <h3>${s.name}</h3>
+                    <p><strong>Level:</strong> ${s.level} | <strong>Category:</strong> ${s.category} | <strong>Years:</strong> ${s.years}</p>
+                    <button class="btn btn-small btn-danger" onclick="deleteSkill(${s.id})" style="background: var(--danger);">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteSkill(id) {
+            portfolioData.skills = portfolioData.skills.filter(s => s.id !== id);
+            saveData();
+            renderSkills();
+        }
+
+        // Certification Management
+        document.getElementById('addCertBtn').addEventListener('click', () => {
+            document.getElementById('certForm').reset();
+            openModal('certModal');
+        });
+
+        document.getElementById('certForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const cert = {
+                id: Date.now(),
+                name: document.getElementById('certName').value,
+                org: document.getElementById('certOrg').value,
+                date: document.getElementById('certDate').value,
+                expiry: document.getElementById('certExpiry').value,
+                url: document.getElementById('certUrl').value
+            };
+            portfolioData.certifications.push(cert);
+            saveData();
+            renderCerts();
+            closeModal('certModal');
+            showAlert('Certification added successfully!', 'success');
+            addActivity(`Added certification: ${cert.name}`);
+        });
+
+        function renderCerts() {
+            const list = document.getElementById('certsList');
+            list.innerHTML = portfolioData.certifications.map(c => `
+                <div class="item-card">
+                    <h4>${c.name}</h4>
+                    <p><strong>${c.org}</strong></p>
+                    <p style="font-size: 0.875rem; color: var(--text);">Issued: ${c.date}</p>
+                    ${c.url ? `<a href="${c.url}" target="_blank" style="color: var(--primary); text-decoration: none;">View Certificate →</a>` : ''}
+                    <button class="btn btn-small btn-danger" onclick="deleteCert(${c.id})" style="margin-top: 1rem; background: var(--danger);">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteCert(id) {
+            portfolioData.certifications = portfolioData.certifications.filter(c => c.id !== id);
+            saveData();
+            renderCerts();
+        }
+
+        // AI Content Generator
+        document.getElementById('generateContentBtn').addEventListener('click', () => {
+            const type = document.getElementById('contentType').value;
+            const context = document.getElementById('contentContext').value;
+
+            if (!type || !context) {
+                showAlert('Please select content type and provide context', 'error');
+                return;
+            }
+
+            // Simulate AI generation
+            const templates = {
+                bio: `As a dedicated professional, I bring a passion for innovation and continuous learning. With expertise in ${context}, I am committed to delivering high-quality solutions that drive impact.`,
+                'project-desc': `This project showcases my ability to work with ${context}. I successfully implemented features that resulted in improved performance and user experience.`,
+                'cover-letter': `I am excited to apply for this position. My experience with ${context} has equipped me with the skills to contribute meaningfully to your team.`,
+                'achievement': `Successfully delivered a project involving ${context}, demonstrating strong technical skills and project management abilities.`
+            };
+
+            const generated = templates[type] || 'Generated content will appear here';
+            document.getElementById('generatedText').textContent = generated;
+            document.getElementById('generatedContent').style.display = 'block';
+            showAlert('Content generated with AI!', 'success');
+        });
+
+        document.getElementById('copyContentBtn').addEventListener('click', () => {
+            const text = document.getElementById('generatedText').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showAlert('Copied to clipboard!', 'success');
+            });
+        });
+
+        // Quiz Builder
+        document.getElementById('createQuizBtn').addEventListener('click', () => {
+            const title = document.getElementById('quizTitle').value;
+            const category = document.getElementById('quizCategory').value;
+
+            if (!title || !category) {
+                showAlert('Please fill in all fields', 'error');
+                return;
+            }
+
+            const quiz = {
+                id: Date.now(),
+                title: title,
+                category: category,
+                questions: []
+            };
+
+            portfolioData.quizzes.push(quiz);
+            saveData();
+            renderQuizzes();
+            document.getElementById('quizTitle').value = '';
+            document.getElementById('quizCategory').value = '';
+            showAlert('Quiz created! Add questions to get started.', 'success');
+            addActivity(`Created quiz: ${title}`);
+        });
+
+        function renderQuizzes() {
+            const list = document.getElementById('quizzesList');
+            list.innerHTML = portfolioData.quizzes.map(q => `
+                <div class="portfolio-item">
+                    <h3>${q.title}</h3>
+                    <p><strong>Category:</strong> ${q.category}</p>
+                    <p><strong>Questions:</strong> ${q.questions.length}</p>
+                    <button class="btn btn-small btn-primary">Edit Quiz</button>
+                    <button class="btn btn-small btn-danger" onclick="deleteQuiz(${q.id})" style="background: var(--danger); margin-left: 0.5rem;">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteQuiz(id) {
+            portfolioData.quizzes = portfolioData.quizzes.filter(q => q.id !== id);
+            saveData();
+            renderQuizzes();
+        }
+
+        // Update Stats
+        function updateStats() {
+            document.getElementById('projectCount').textContent = portfolioData.projects.length;
+            document.getElementById('skillCount').textContent = portfolioData.skills.length;
+            document.getElementById('certCount').textContent = portfolioData.certifications.length;
+            document.getElementById('quizCount').textContent = portfolioData.quizzes.length;
+
+            // Calculate profile completion
+            let completion = 0;
+            if (portfolioData.bio.fullName) completion += 20;
+            if (portfolioData.bio.email) completion += 20;
+            if (portfolioData.bio.bio) completion += 20;
+            if (portfolioData.projects.length > 0) completion += 20;
+            if (portfolioData.skills.length > 0) completion += 20;
+
+            document.getElementById('profileCompletion').textContent = completion;
+            document.getElementById('progressBar').style.width = completion + '%';
+        }
+
+        // Activity Tracking (Developer Only - Stored in DEVELOPER_PROCESS.md)
+        function addActivity(activity) {
+            // Activity tracking is now handled by developers only
+            // See DEVELOPER_PROCESS.md for logging and monitoring details
+        }
+
+        // Alert Function
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert show alert-${type}`;
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 3000);
+        }
+
+        // Update UI
+        function updateUI() {
+            if (portfolioData.bio.fullName) {
+                document.getElementById('fullName').value = portfolioData.bio.fullName;
+                document.getElementById('email').value = portfolioData.bio.email;
+                document.getElementById('bio').value = portfolioData.bio.bio;
+                document.getElementById('location').value = portfolioData.bio.location;
+            }   
+            renderProjects();
+            renderSkills();
+            renderCerts();
+            renderQuizzes();
+            updateStats();
+        }
+
+        // ==================== Template Integration Functions ====================
+
+        // Canva Resume
+        function openCanvaResume() {
+            window.open('https://www.canva.com/design/templates/resumes', '_blank');
+            addActivity('Opened Canva Resume Templates');
+            showAlert('Opening Canva Resume Templates...', 'success');
+        }
+
+        // Lumen5 Video
+        function openLumen5Video() {
+            window.open('https://www.lumen5.com/', '_blank');
+            addActivity('Opened Lumen5 Video Creator');
+            showAlert('Opening Lumen5 Video Creator...', 'success');
+        }
+
+        // Gamma AI Presentation
+        function openGammaAI() {
+            window.open('https://gamma.app/', '_blank');
+            addActivity('Opened Gamma AI Presentation Generator');
+            showAlert('Opening Gamma AI...', 'success');
+        }
+
+        // Canva Certificate
+        function openCanvaCertificate() {
+            window.open('https://www.canva.com/design/templates/certificates', '_blank');
+            addActivity('Opened Canva Certificate Templates');
+            showAlert('Opening Canva Certificate Designer...', 'success');
+        }
+
+        // Veed.io Video Editor
+        function openVeedIO() {
+            window.open('https://www.veed.io/', '_blank');
+            addActivity('Opened Veed.io Video Editor');
+            showAlert('Opening Veed.io Video Editor...', 'success');
+        }
+
+        // Google Sites Portfolio
+        function openGoogleSites() {
+            window.open('https://sites.google.com/', '_blank');
+            addActivity('Opened Google Sites');
+            showAlert('Opening Google Sites...', 'success');
+        }
+
+        // Notion Portfolio
+        function openNotion() {
+            window.open('https://www.notion.so/', '_blank');
+            addActivity('Opened Notion');
+            showAlert('Opening Notion...', 'success');
+        }
+
+        // Quizizz Quiz Builder
+        function openQuizizz() {
+            window.open('https://quizizz.com/', '_blank');
+            addActivity('Opened Quizizz Quiz Builder');
+            showAlert('Opening Quizizz...', 'success');
+        }
+
+        // Figma Design
+        function openFigma() {
+            window.open('https://www.figma.com/', '_blank');
+            addActivity('Opened Figma Design Tool');
+            showAlert('Opening Figma...', 'success');
+        }
+
+        // LinkedIn Profile
+        function openLinkedIn() {
+            window.open('https://www.linkedin.com/', '_blank');
+            addActivity('Opened LinkedIn');
+            showAlert('Opening LinkedIn...', 'success');
+        }
+
+        // GitHub Portfolio
+        function openGitHub() {
+            window.open('https://github.com/', '_blank');
+            addActivity('Opened GitHub');
+            showAlert('Opening GitHub...', 'success');
+        }
+
+        // Analytics Dashboard
+        function showAnalytics() {
+            const analyticsHTML = `
+                <div style="padding: 1rem;">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">📊 Portfolio Analytics</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="background: var(--light); padding: 1rem; border-radius: 8px;">
+                            <p style="font-size: 0.875rem; color: var(--text);">Total Views</p>
+                            <p style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">0</p>
+                        </div>
+                        <div style="background: var(--light); padding: 1rem; border-radius: 8px;">
+                            <p style="font-size: 0.875rem; color: var(--text);">Unique Visitors</p>
+                            <p style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">0</p>
+                        </div>
+                        <div style="background: var(--light); padding: 1rem; border-radius: 8px;">
+                            <p style="font-size: 0.875rem; color: var(--text);">Engagement Rate</p>
+                            <p style="font-size: 1.5rem; font-weight: bold; color: var(--success);">0%</p>
+                        </div>
+                        <div style="background: var(--light); padding: 1rem; border-radius: 8px;">
+                            <p style="font-size: 0.875rem; color: var(--text);">Avg. Session Time</p>
+                            <p style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">0s</p>
+                        </div>
+                    </div>
+                    <p style="color: var(--text); font-size: 0.875rem;">Analytics will be available once you share your portfolio publicly.</p>
+                </div>
+            `;
+            alert('Analytics Dashboard\n\nFeature coming soon! Share your portfolio to start tracking views and engagement.');
+            addActivity('Viewed Analytics Dashboard');
+        }
+
+        // Export as PDF
+        function exportPortfolioPDF() {
+            const portfolioContent = `
+Portfolio Summary
+================
+
+Name: ${portfolioData.bio.fullName || 'Not provided'}
+Email: ${portfolioData.bio.email || 'Not provided'}
+Location: ${portfolioData.bio.location || 'Not provided'}
+
+Bio:
+${portfolioData.bio.bio || 'Not provided'}
+
+Projects: ${portfolioData.projects.length}
+Skills: ${portfolioData.skills.length}
+Certifications: ${portfolioData.certifications.length}
+
+Generated on: ${new Date().toLocaleString()}
+            `;
+            
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(portfolioContent));
+            element.setAttribute('download', 'portfolio.txt');
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+            
+            showAlert('Portfolio exported as PDF (text format)!', 'success');
+            addActivity('Exported portfolio as PDF');
+        }
+
+        // Export as JSON
+        function exportPortfolioJSON() {
+            const dataStr = JSON.stringify(portfolioData, null, 2);
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr));
+            element.setAttribute('download', 'portfolio.json');
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+            
+            showAlert('Portfolio exported as JSON!', 'success');
+            addActivity('Exported portfolio as JSON');
+        }
+
+        // Share Portfolio Link
+        function sharePortfolioLink() {
+            const shareURL = window.location.href;
+            const shareText = `Check out my professional portfolio! ${shareURL}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My Portfolio',
+                    text: 'Check out my professional portfolio!',
+                    url: shareURL
+                }).catch(err => console.log('Error sharing:', err));
+            } else {
+                // Fallback: copy to clipboard
+                navigator.clipboard.writeText(shareURL).then(() => {
+                    showAlert('Portfolio link copied to clipboard!', 'success');
+                });
+            }
+            addActivity('Shared portfolio link');
+        }
+
+        // Print Portfolio
+        function printPortfolio() {
+            window.print();
+            addActivity('Printed portfolio');
+        }
+
+        // Initialize
+        loadData();
+        
+    </script>
+</body>
+</html>
